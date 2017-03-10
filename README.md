@@ -10,8 +10,10 @@ Teeny-tiny super-flexible modal for React.
 
 ## Usage
 micro-modal doesn't handle the logic of opening and closing the modal: you can handle that, right? Instead, it gives you a single access point, `open` so that you can integrate with your app as you see fit i.e. redux, mobx. Also, it gives you full access to each element to add inline styles and adjust the classnames.
+
+Complete config options and defaults are shown below:
 ```javascript
-import { Modal, Inner, Content } from 'micro-modal'
+import { Modal, Content } from 'micro-modal'
 
 class App extends React.Component {
   constructor (props) {
