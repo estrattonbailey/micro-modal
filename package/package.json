@@ -1,10 +1,10 @@
 {
-  "name": "visibl",
+  "name": "micro-modal",
   "version": "0.0.1",
-  "description": "Teeny-tiny declarative in-viewport React HOC",
+  "description": "Teeny-tiny super-flexible modal for React.",
   "main": "dist/index.js",
   "license": "MIT",
-  "repository": "https://github.com/estrattonbailey/visibl",
+  "repository": "https://github.com/estrattonbailey/micro-modal",
   "author": "estrattonbailey",
   "scripts": {
     "lint": "standard 'index.js'",
@@ -15,8 +15,7 @@
   },
   "keywords": [
     "react",
-    "waypoint",
-    "in viewport"
+    "modal"
   ],
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -30,8 +29,5 @@
   "peerDependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
-  },
-  "dependencies": {
-    "srraf": "^0.1.0"
   }
 }
