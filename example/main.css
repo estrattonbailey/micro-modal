@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+body.modal-is-open {
+  overflow: hidden;
+}
+.modal__inner {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0; top: 0;
+  background-color: rgba(0,0,0,0.9);
+  padding: 2em;
+  overflow: auto;
+  opacity: 0;
+  transition: opacity 500ms;
+}
+.modal__inner.is-open {
+  display: block;
+}
+.modal__inner.is-visible {
+  opacity: 1;
+}
+.modal__inner.is-hiding {
+  opacity: 0;
+}
+.modal__content {
+  padding: 2em;
+  background: white;
+  max-width: 700px;
+  margin: auto;
+}
