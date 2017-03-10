@@ -145,7 +145,7 @@ Modal.defaultProps = {
   className: 'modal',
   closeTimeout: 500,
   bodyClass: 'modal-is-open',
-  portalClassName: 'modal-portal',
+  portalClassName: 'modal-portal'
 }
 
 export const Content = ({
