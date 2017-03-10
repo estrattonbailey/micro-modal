@@ -5,7 +5,7 @@
 body.modal-is-open {
   overflow: hidden;
 }
-.modal__inner {
+.modal {
   display: none;
   position: fixed;
   bottom: 0; left: 0; right: 0; top: 0;
@@ -15,13 +15,13 @@ body.modal-is-open {
   opacity: 0;
   transition: opacity 500ms;
 }
-.modal__inner.is-open {
+.modal.is-open {
   display: block;
 }
-.modal__inner.is-visible {
+.modal.is-visible {
   opacity: 1;
 }
-.modal__inner.is-hiding {
+.modal.is-hiding {
   opacity: 0;
 }
 .modal__content {

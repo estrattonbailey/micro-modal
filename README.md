@@ -5,7 +5,7 @@ Teeny-tiny super-flexible modal for React.
 
 ## Features
 1. No opinions
-2. Supports custom classes or inline styles
+2. Supports custom classes and inline styles
 3. 1.6kb 😎
 
 ## Usage
@@ -39,12 +39,26 @@ class App extends React.Component {
       <div>
         <button onClick={e => this.toggle(!this.state.open)}>Open</button>
 
-        <Modal open={this.state.open}>
-          <Inner onClick={e => this.toggle(!this.state.open)}>
-            <Content>
-              <h1>My Modal</h1>
-            </Content>
-          </Inner>
+        <Modal
+          portalClassName="modal-portal"
+          portalStyle={{ position: 'relative' }}
+          className="modal"
+          style={{ background: 'rgba(0,0,0,0.2)' }}
+          openClass="is-open"
+          visibleClass="is-visible"
+          hidingClass="is-hiding"
+          bodyClass="modal-is-visible"
+          onClose={nill => console.log('Closing')}
+          onOpen={nill => console.log('Opening')}
+          closeTimeout={500}
+          onClick={e => this.toggle(!this.state.open)}
+          open={this.state.open}>
+          <Content
+            onClick={nill => console.log('Clicked on content')}
+            style={{ background: 'white' }}
+            className="modal__content">
+            <h1>My Modal</h1>
+          </Content>
         </Modal>
       </div>
     )
@@ -57,7 +71,7 @@ You'll also want some styles to start:
 body.modal-is-open {
   overflow: hidden;
 }
-.modal__inner {
+.modal {
   display: none;
   position: fixed;
   bottom: 0; left: 0; right: 0; top: 0;
@@ -67,13 +81,13 @@ body.modal-is-open {
   opacity: 0;
   transition: opacity 500ms;
 }
-.modal__inner.is-open {
+.modal.is-open {
   display: block;
 }
-.modal__inner.is-visible {
+.modal.is-visible {
   opacity: 1;
 }
-.modal__inner.is-hiding {
+.modal.is-hiding {
   opacity: 0;
 }
 .modal__content {
@@ -85,10 +99,9 @@ body.modal-is-open {
 ```
 
 ## TODO
-1. Add configs for the statefull classes
-2. Add callbacks for each lifecycle step
+1. Add callbacks for each lifecycle step
   - could use this to adjust inline styles too
-3. Docs:
+2. Docs:
   - bodyClass, closeTimeout, onClick
 
 ## Browser Support

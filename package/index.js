@@ -4,14 +4,61 @@ import {
   unmountComponentAtNode
 } from 'react-dom'
 
-const getClassName = (className, { open, afterOpen, hiding }) => {
+/**
+ * @param {string} className Base classname
+ * @param {object} (state) Modal state
+ * @param {object} (props) Config classes
+ * @return {string} Full classname
+ */
+const getClassName = (
+  className,
+  { open, afterOpen, hiding },
+  { openClass, visibleClass, hidingClass }
+) => {
   return className + (
-    open ? ' is-open' : ''
+    open ? ` ${openClass || 'is-open'}` : ''
   ) + (
-    afterOpen ? ' is-visible' : ''
+    afterOpen ? ` ${visibleClass || 'is-visible'}` : ''
   ) + (
-    hiding ? ' is-hiding' : ''
+    hiding ? ` ${hidingClass || 'is-hiding'}` : ''
   )
+}
+
+/**
+ * @param {string} className
+ * @param {object} style
+ */
+export class Portal extends React.Component {
+  getChildren () {
+    const attrs = {
+      className: this.props.className,
+      style: this.props.style
+    }
+
+    return (
+      <section {...attrs}>
+        {this.props.children}
+      </section>
+    )
+  }
+
+  componentDidMount () {
+    this.portalNode = document.body.appendChild(document.createElement('div'))
+    this.portal = renderToPortal(this, this.getChildren(), this.portalNode)
+  }
+
+  componentDidUpdate () {
+    this.portal = renderToPortal(this, this.getChildren(), this.portalNode)
+  }
+
+  componentWillUnmount () {
+    unmountComponentAtNode(this.portalNode)
+    document.body.removeChild(this.portalNode)
+  }
+
+  render () {
+    return null
+  }
 }
 
 export class Modal extends React.Component {
@@ -23,22 +70,6 @@ export class Modal extends React.Component {
       open: this.props.open,
       afterOpen: false
     }
-  }
-
-  getChildren () {
-    const attrs = {
-      className: getClassName(this.props.className, this.state),
-      style: this.props.style
-    }
-
-    return (
-      <section {...attrs}>
-        {React.cloneElement(
-          this.props.children,
-          Object.assign({}, this.props.children.props, this.state)
-        )}
-      </section>
-    )
   }
 
   componentWillReceiveProps (props) {
@@ -77,73 +108,63 @@ export class Modal extends React.Component {
     }
   }
 
-  componentDidMount () {
-    this.portalNode = document.body.appendChild(document.createElement('div'))
-    this._portal = renderToPortal(this, this.getChildren(), this.portalNode)
-  }
-
-  componentDidUpdate () {
-    this._portal = renderToPortal(this, this.getChildren(), this.portalNode)
-  }
-
-  componentWillUnmount () {
-    unmountComponentAtNode(this.portalNode)
-    document.body.removeChild(this.portalNode)
-  }
-
   render () {
-    return null
+    const {
+      className,
+      style,
+      onClick,
+      portalClassName,
+      portalStyle
+    } = this.props
+
+    const modal = {
+      className: getClassName(className, this.state, this.props),
+      style,
+      onClick
+    }
+
+    const portal = {
+      className: portalClassName,
+      style: portalStyle
+    }
+
+    return (
+      <Portal {...portal}>
+        <div {...modal}>
+          {React.cloneElement(
+            this.props.children,
+            Object.assign({}, this.props.children.props, this.state)
+          )}
+        </div>
+      </Portal>
+    )
   }
 }
 
 Modal.defaultProps = {
   className: 'modal',
   closeTimeout: 500,
-  bodyClass: 'modal-is-open'
-}
-
-export const Inner = ({
-  children,
-  className = 'modal__inner',
-  style,
-  onClick,
-  ...props
-}) => {
-  const attrs = {
-    className: getClassName(className, props),
-    style: style,
-    onClick: onClick
-  }
-
-  return (
-    <div {...attrs}>
-      {React.cloneElement(
-        children,
-        Object.assign({}, children.props, {
-          open: props.open,
-          hiding: props.hiding,
-          afterOpen: props.afterOpen
-        })
-      )}
-    </div>
-  )
+  bodyClass: 'modal-is-open',
+  portalClassName: 'modal-portal',
 }
 
 export const Content = ({
   children,
   className = 'modal__content',
   style,
+  onClick,
   ...props
 }) => {
   const attrs = {
-    className: getClassName(className, props),
-    style: style
+    className: getClassName(className, props, props),
+    style
   }
 
   return (
     <div {...attrs} onClick={e => {
       e.preventDefault()
       e.stopPropagation()
+      onClick && onClick(e)
       return false
     }}>
       {children}
