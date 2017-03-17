@@ -4,7 +4,7 @@ Teeny-tiny super-flexible modal for React.
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
 
 ## Features
-1. No opinions
+1. Bare minimum opinion
 2. Supports custom classes and inline styles
 3. 1.6kb 😎
 
@@ -68,6 +68,24 @@ class App extends React.Component {
 }
 ```
 
+Once you've created your modal, just mount it to your app wherever you like:
+```javascript
+// Root.js
+class Root extends React.Component {
+  render() {
+    return (
+      <div id="root">
+        <Header/>
+
+        <MyModal/>
+
+        <Footer/>
+      </div>
+    )
+  }
+}
+```
+
 You'll also want some styles to start:
 ```css
 body.modal-is-open {
@@ -93,6 +111,7 @@ body.modal-is-open {
   opacity: 0;
 }
 .modal__content {
+  position: relative;
   padding: 2em;
   background: white;
   max-width: 700px;
@@ -101,10 +120,7 @@ body.modal-is-open {
 ```
 
 ## TODO
-1. Add callbacks for each lifecycle step
-  - could use this to adjust inline styles too
-2. Docs:
-  - bodyClass, closeTimeout, onClick
+1. Accessiblity
 
 ## Browser Support
 TODO, but should work in all evergreen browsers and IE 10+.

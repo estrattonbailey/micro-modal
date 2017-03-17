@@ -119,8 +119,7 @@ export class Modal extends React.Component {
 
     const modal = {
       className: getClassName(className, this.state, this.props),
-      style,
-      onClick
+      style
     }
 
     const portal = {
@@ -128,9 +127,22 @@ export class Modal extends React.Component {
       style: portalStyle
     }
 
+    const overlay = {
+      style: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 0
+      },
+      onClick
+    }
+
     return (
       <Portal {...portal}>
         <div {...modal}>
+          <div {...overlay} />
           {React.cloneElement(
             this.props.children,
             Object.assign({}, this.props.children.props, this.state)
@@ -152,7 +164,6 @@ export const Content = ({
   children,
   className = 'modal__content',
   style,
-  onClick,
   ...props
 }) => {
   const attrs = {
@@ -161,12 +172,7 @@ export const Content = ({
   }
 
   return (
-    <div {...attrs} onClick={e => {
-      e.preventDefault()
-      e.stopPropagation()
-      onClick && onClick(e)
-      return false
-    }}>
+    <div {...attrs}>
       {children}
     </div>
   )

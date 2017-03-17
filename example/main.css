@@ -25,6 +25,7 @@ body.modal-is-open {
   opacity: 0;
 }
 .modal__content {
+  position: relative;
   padding: 2em;
   background: white;
   max-width: 700px;
