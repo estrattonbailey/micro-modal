@@ -114,7 +114,9 @@ export class Modal extends React.Component {
       style,
       onClick,
       portalClassName,
-      portalStyle
+      portalStyle,
+      overlayClassName,
+      overlayStyle
     } = this.props
 
     const modal = {
@@ -128,15 +130,16 @@ export class Modal extends React.Component {
     }
 
     const overlay = {
-      style: {
-        position: 'absolute',
+      style: overlayStyle || {
+        position: 'fixed',
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
         zIndex: 0
       },
-      onClick
+      onClick,
+      className: overlayClassName
     }
 
     return (
@@ -157,7 +160,8 @@ Modal.defaultProps = {
   className: 'modal',
   closeTimeout: 500,
   bodyClass: 'modal-is-open',
-  portalClassName: 'modal-portal'
+  portalClassName: 'modal-portal',
+  overlayClassName: 'modal__overlay'
 }
 
 export const Content = ({

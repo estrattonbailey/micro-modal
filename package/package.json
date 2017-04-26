@@ -1,6 +1,6 @@
 {
   "name": "micro-modal",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Teeny-tiny super-flexible modal for React.",
   "main": "dist/index.js",
   "license": "MIT",

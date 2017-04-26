@@ -42,19 +42,21 @@ class App extends React.Component {
         <button onClick={e => this.toggle(!this.state.open)}>Open</button>
 
         <Modal
-          portalClassName="modal-portal"
-          portalStyle={{ position: 'relative' }}
           className="modal"
           style={{ background: 'rgba(0,0,0,0.2)' }}
+          open={this.state.open}
           openClass="is-open"
           visibleClass="is-visible"
           hidingClass="is-hiding"
+          closeTimeout={500}
           bodyClass="modal-is-visible"
           onClose={nill => console.log('Closing')}
           onOpen={nill => console.log('Opening')}
-          closeTimeout={500}
           onClick={e => this.toggle(!this.state.open)}
-          open={this.state.open}>
+          overlayClassName="modal__overlay"
+          overlayStyle={{ background: 'rgba(0,0,0,0.9)' }}
+          portalClassName="modal-portal"
+          portalStyle={{ position: 'relative' }}>
           <Content
             onClick={nill => console.log('Clicked on content')}
             style={{ background: 'white' }}
