@@ -1,11 +1,12 @@
 # micro-modal
-Teeny-tiny modal for React. **~1.6kb gzipped**.
+Teeny-tiny super-flexible modal for React.
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](http://standardjs.com)
 
 ## Features
-1. CSS hooks for animation
+1. Bare minimum opinion
 2. Supports custom classes and inline styles
+3. 1.6kb 😎
 
 ## Usage
 micro-modal doesn't handle the logic of opening and closing the modal: you can handle that, right? Instead, it gives you a single access point, `open` so that you can integrate with your app as you see fit i.e. redux, mobx. Also, it gives you full access to each element to add inline styles and adjust the classnames.
